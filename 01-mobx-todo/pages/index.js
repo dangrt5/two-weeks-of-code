@@ -1,34 +1,16 @@
 /** @jsx jsx */
-import React, { useState } from "react";
+import { useContext } from "react";
+import { StoreContext } from "./_app";
+import { useObserver } from "mobx-react";
 import Layout from "../components/Layout/Layout";
 import List from "../components/List/List";
 import { Button } from "../components/Button/Button";
 import { css, jsx } from "@emotion/core";
 
-const MockData = [
-  {
-    title: "Picking weeds",
-    checked: false,
-  },
-  {
-    title: "Watch Future Man",
-    checked: true,
-  },
-];
-
 const Index = () => {
-  const [data, setData] = useState([]);
+  const store = useContext(StoreContext);
 
-  const checkboxClick = (itemNumber) => {
-    setData((prevData) => {
-      const newData = [...prevData];
-      const item = newData[itemNumber];
-      item.checked = !item.checked;
-      return newData;
-    });
-  };
-
-  return (
+  return useObserver(() => (
     <Layout title="Todo List">
       <div
         css={css`
@@ -38,22 +20,10 @@ const Index = () => {
           flex-direction: column;
         `}
       >
-        <List checkboxClick={checkboxClick} data={data} />
-        <Button
-          css={css`
-            margin-top: 24px;
-            background-color: #1b912d;
-            color: white;
-            &:hover: {
-              background-color: #1fa633;
-            }
-          `}
-        >
-          Add New Item
-        </Button>
+        <List />
       </div>
     </Layout>
-  );
+  ));
 };
 
 export default Index;

@@ -1,4 +1,6 @@
-export default () => {
+import React from "react";
+
+const styles = () => {
   return (
     <style jsx>
       {`
@@ -21,3 +23,5 @@ export default () => {
     </style>
   );
 };
+
+export default styles;
